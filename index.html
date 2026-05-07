@@ -422,6 +422,8 @@ showOnScroll();
 </script>
 <script>
 
+<script>
+
 const imageList = [
 
     "pic1.jpg",
@@ -436,20 +438,19 @@ document.getElementById(
 "floating-container"
 );
 
-let currentIndex = 0;
-
 window.addEventListener(
 "scroll",
 () => {
 
-    if(currentIndex >= imageList.length)
-    return;
+    const randomImage =
+    imageList[
+        Math.floor(
+            Math.random() *
+            imageList.length
+        )
+    ];
 
-    createImage(
-    imageList[currentIndex]
-    );
-
-    currentIndex++;
+    createImage(randomImage);
 
 });
 
@@ -473,11 +474,32 @@ function createImage(src){
 
     container.appendChild(img);
 
+    /* SHOW */
+
     setTimeout(() => {
 
         img.classList.add("show");
 
     }, 100);
+
+    /* DISAPPEAR AFTER 1.5 SEC */
+
+    setTimeout(() => {
+
+        img.style.opacity = "0";
+
+        img.style.transform =
+        "scale(0.2) rotate(20deg)";
+
+    }, 1500);
+
+    /* REMOVE FROM PAGE */
+
+    setTimeout(() => {
+
+        img.remove();
+
+    }, 2200);
 
 }
 
