@@ -390,37 +390,6 @@ window.addEventListener("scroll", function () {
 });
 
 </script>
-<script>
-
-const images =
-document.querySelectorAll(".pop-img");
-
-function showOnScroll(){
-
-    images.forEach(img => {
-
-        const top =
-        img.getBoundingClientRect().top;
-
-        if(top < window.innerHeight - 100){
-
-            img.classList.add("show");
-
-        }
-
-    });
-
-}
-
-window.addEventListener(
-"scroll",
-showOnScroll
-);
-
-showOnScroll();
-
-</script>
-<script>
 
 <script>
 
@@ -505,5 +474,4 @@ function createImage(src){
 
 </script>
 </body>
-</script>
 </html>
