@@ -409,41 +409,108 @@ document.getElementById(
 
 let lastSpawn = 0;
 
+/* FIXED POSITIONS */
+
+const positions = [
+
+    { top:"15%", left:"8%" },
+
+    { top:"20%", right:"10%" },
+
+    { top:"55%", left:"12%" },
+
+    { top:"60%", right:"15%" },
+
+    { top:"35%", left:"40%" }
+
+];
+
 window.addEventListener(
 "scroll",
 () => {
 
     const now = Date.now();
 
-    /* WAIT BEFORE NEXT POP */
+    /* LESS POPPING */
 
-    if(now - lastSpawn < 1200)
+    if(now - lastSpawn < 2500)
     return;
 
     lastSpawn = now;
 
-    /* ONLY CREATE 2-3 IMAGES */
+    const randomImage =
+    imageList[
+        Math.floor(
+            Math.random() *
+            imageList.length
+        )
+    ];
 
-    const total =
-    Math.floor(
-        Math.random() * 2
-    ) + 2;
+    const randomPos =
+    positions[
+        Math.floor(
+            Math.random() *
+            positions.length
+        )
+    ];
 
-    for(let i=0;i<total;i++){
-
-        const randomImage =
-        imageList[
-            Math.floor(
-                Math.random() *
-                imageList.length
-            )
-        ];
-
-        createImage(randomImage);
-
-    }
+    createImage(
+        randomImage,
+        randomPos
+    );
 
 });
+
+function createImage(src, pos){
+
+    const img =
+    document.createElement("img");
+
+    img.src = src;
+
+    img.className =
+    "floating-pic";
+
+    /* FIXED POSITIONS */
+
+    if(pos.left)
+        img.style.left = pos.left;
+
+    if(pos.right)
+        img.style.right = pos.right;
+
+    img.style.top = pos.top;
+
+    container.appendChild(img);
+
+    /* SHOW */
+
+    setTimeout(() => {
+
+        img.classList.add("show");
+
+    }, 100);
+
+    /* DISAPPEAR */
+
+    setTimeout(() => {
+
+        img.style.opacity = "0";
+
+        img.style.transform =
+        "scale(0.6)";
+
+    }, 1500);
+
+    /* REMOVE */
+
+    setTimeout(() => {
+
+        img.remove();
+
+    }, 2200);
+
+}
 
 function createImage(src){
 
