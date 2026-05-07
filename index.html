@@ -407,19 +407,41 @@ document.getElementById(
 "floating-container"
 );
 
+let lastSpawn = 0;
+
 window.addEventListener(
 "scroll",
 () => {
 
-    const randomImage =
-    imageList[
-        Math.floor(
-            Math.random() *
-            imageList.length
-        )
-    ];
+    const now = Date.now();
 
-    createImage(randomImage);
+    /* WAIT BEFORE NEXT POP */
+
+    if(now - lastSpawn < 1200)
+    return;
+
+    lastSpawn = now;
+
+    /* ONLY CREATE 2-3 IMAGES */
+
+    const total =
+    Math.floor(
+        Math.random() * 2
+    ) + 2;
+
+    for(let i=0;i<total;i++){
+
+        const randomImage =
+        imageList[
+            Math.floor(
+                Math.random() *
+                imageList.length
+            )
+        ];
+
+        createImage(randomImage);
+
+    }
 
 });
 
